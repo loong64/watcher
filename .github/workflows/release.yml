@@ -56,6 +56,16 @@ jobs:
             image: ghcr.io/prebuild/linux-armv7l-musl:2.3.1
             node: 18
           - os: ubuntu-latest
+            arch: loong64
+            libc: glibc
+            image: ghcr.io/loong64/prebuild/linux-loong64-lts:2.1.1
+            node: 18
+          - os: ubuntu-latest
+            arch: loong64
+            libc: musl
+            image: ghcr.io/loong64/prebuild/linux-loong64-musl:2.1.1
+            node: 18
+          - os: ubuntu-latest
             arch: arm64
             image: ghcr.io/prebuild/android-arm64:2.1.1
             node: 18
@@ -132,6 +142,8 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
+    env:
+      NPM_CONFIG_REGISTRY: https://${{ vars.LOONGDOTJS_NPM_REGISTRY }}
     needs:
       - build
       - build-freebsd
@@ -157,9 +169,10 @@ jobs:
           node scripts/build-wasm.js
       - name: Publish to npm
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_REGISTRY: ${{ vars.LOONGDOTJS_NPM_REGISTRY }}
+          NPM_TOKEN: ${{ secrets.LOONGDOTJS_NPM_TOKEN }}
         run: |
-          echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > ~/.npmrc
+          echo "//${NPM_REGISTRY}/:_authToken=${NPM_TOKEN}" > ~/.npmrc
           for pkg in npm/*; do
             echo "Publishing $pkg..."
             cd $pkg;

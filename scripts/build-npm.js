@@ -54,6 +54,16 @@ const triples = [
     libc: 'musl'
   },
   {
+    platform: 'linux',
+    arch: 'loong64',
+    libc: 'glibc'
+  },
+  {
+    platform: 'linux',
+    arch: 'loong64',
+    libc: 'musl'
+  },
+  {
     platform: 'android',
     arch: 'arm64'
   },
