@@ -53,6 +53,16 @@ jobs:
             image: ghcr.io/prebuild/linux-armv7l-musl:2.3.1
             node: 18
           - os: ubuntu-latest
+            arch: loong64
+            libc: glibc
+            image: ghcr.io/loong64/prebuild/linux-loong64-lts:2.1.1
+            node: 18
+          - os: ubuntu-latest
+            arch: loong64
+            libc: musl
+            image: ghcr.io/loong64/prebuild/linux-loong64-musl:2.1.1
+            node: 18
+          - os: ubuntu-latest
             arch: arm64
             image: ghcr.io/prebuild/android-arm64:2.1.1
             node: 18
